@@ -1,0 +1,242 @@
+Mplus VERSION 8.2
+MUTHEN & MUTHEN
+10/04/2024   1:20 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE: Proposed 1-stage Latent-Standardization Method
+  DATA:	 FILE IS data_COV.csv;
+           TYPE IS MEANS COVA;
+           NOBSERVATIONS=605;
+  VARIABLE: NAMES ARE x11-x13 x21-x23 x31-x33 x41-x43;
+  MODEL:
+          f1 BY	x11-x13* (L1-L3);
+      	f2 BY 	x21-x23* (L1-L3);
+      	f3 BY 	x31-x33* (L1-L3);
+      	f4 BY 	x41-x43* (L1-L3);
+
+      	[x11   x21   x31   x41] (tau1);
+      	[x12   x22   x32   x42] (tau2);
+      	[x13   x23   x33   x43] (tau3);
+
+      	i s | f1@0 f2@1 f3@2 f4@3;! define LGM with i as Level and s as Slope
+
+        f1(psi1);
+        i(ivar);
+        s(svar);
+        i with s (cov);
+
+      MODEL CONSTRAINT:
+      NEW (rel);
+      0=1-psi1-ivar;  ! constraining Equation 17,  ¦Ì_¦Á=0 is default by using | statement
+      rel=cov/sqrt(ivar*svar);  ! for calculating correlation between Level and Slope
+
+  OUTPUT:;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+Proposed 1-stage Latent-Standardization Method
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                         605
+
+Number of dependent variables                                   12
+Number of independent variables                                  0
+Number of continuous latent variables                            6
+
+Observed dependent variables
+
+  Continuous
+   X11         X12         X13         X21         X22         X23
+   X31         X32         X33         X41         X42         X43
+
+Continuous latent variables
+   F1          F2          F3          F4          I           S
+
+
+Estimator                                                       ML
+Information matrix                                        EXPECTED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+
+Input data file(s)
+  data_COV.csv
+
+Input data format  FREE
+
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       25
+
+Loglikelihood
+
+          H0 Value                       -7132.046
+          H1 Value                       -6963.370
+
+Information Criteria
+
+          Akaike (AIC)                   14314.093
+          Bayesian (BIC)                 14424.223
+          Sample-Size Adjusted BIC       14344.855
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                            337.353
+          Degrees of Freedom                    65
+          P-Value                           0.0000
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.083
+          90 Percent C.I.                    0.075  0.092
+          Probability RMSEA <= .05           0.000
+
+CFI/TLI
+
+          CFI                                0.931
+          TLI                                0.930
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                           4015.559
+          Degrees of Freedom                    66
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.063
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ I        |
+    F1                 1.000      0.000    999.000    999.000
+    F2                 1.000      0.000    999.000    999.000
+    F3                 1.000      0.000    999.000    999.000
+    F4                 1.000      0.000    999.000    999.000
+
+ S        |
+    F1                 0.000      0.000    999.000    999.000
+    F2                 1.000      0.000    999.000    999.000
+    F3                 2.000      0.000    999.000    999.000
+    F4                 3.000      0.000    999.000    999.000
+
+ F1       BY
+    X11                0.792      0.028     28.154      0.000
+    X12                0.721      0.025     28.285      0.000
+    X13                0.473      0.021     22.682      0.000
+
+ F2       BY
+    X21                0.792      0.028     28.154      0.000
+    X22                0.721      0.025     28.285      0.000
+    X23                0.473      0.021     22.682      0.000
+
+ F3       BY
+    X31                0.792      0.028     28.154      0.000
+    X32                0.721      0.025     28.285      0.000
+    X33                0.473      0.021     22.682      0.000
+
+ F4       BY
+    X41                0.792      0.028     28.154      0.000
+    X42                0.721      0.025     28.285      0.000
+    X43                0.473      0.021     22.682      0.000
+
+ I        WITH
+    S                 -0.057      0.020     -2.818      0.005
+
+ Means
+    I                  0.000      0.000    999.000    999.000
+    S                 -0.158      0.016    -10.112      0.000
+
+ Intercepts
+    X11                2.075      0.033     62.385      0.000
+    X12                1.980      0.030     65.541      0.000
+    X13                1.667      0.023     71.335      0.000
+    X21                2.075      0.033     62.385      0.000
+    X22                1.980      0.030     65.541      0.000
+    X23                1.667      0.023     71.335      0.000
+    X31                2.075      0.033     62.385      0.000
+    X32                1.980      0.030     65.541      0.000
+    X33                1.667      0.023     71.335      0.000
+    X41                2.075      0.033     62.385      0.000
+    X42                1.980      0.030     65.541      0.000
+    X43                1.667      0.023     71.335      0.000
+    F1                 0.000      0.000    999.000    999.000
+    F2                 0.000      0.000    999.000    999.000
+    F3                 0.000      0.000    999.000    999.000
+    F4                 0.000      0.000    999.000    999.000
+
+ Variances
+    I                  0.641      0.051     12.531      0.000
+    S                  0.043      0.011      3.907      0.000
+
+ Residual Variances
+    X11                0.307      0.028     11.053      0.000
+    X12                0.210      0.021      9.842      0.000
+    X13                0.660      0.040     16.446      0.000
+    X21                0.200      0.021      9.401      0.000
+    X22                0.233      0.020     11.541      0.000
+    X23                0.558      0.034     16.450      0.000
+    X31                0.153      0.016      9.731      0.000
+    X32                0.126      0.013      9.680      0.000
+    X33                0.325      0.020     16.249      0.000
+    X41                0.108      0.013      8.153      0.000
+    X42                0.126      0.012     10.322      0.000
+    X43                0.265      0.016     16.175      0.000
+    F1                 0.359      0.051      7.022      0.000
+    F2                 0.377      0.051      7.431      0.000
+    F3                 0.351      0.043      8.101      0.000
+    F4                 0.231      0.046      5.024      0.000
+
+New/Additional Parameters
+    REL               -0.344      0.084     -4.088      0.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.490E-02
+       (ratio of smallest to largest eigenvalue)
+
+
+DIAGRAM INFORMATION
+
+  Use View Diagram under the Diagram menu in the Mplus Editor to view the diagram.
+  If running Mplus from the Mplus Diagrammer, the diagram opens automatically.
+
+  Diagram output
+    d:\dif_growth\second-order lgm std_paper\i Í¶¸åmbr\data&code\1-stage method.dgm
+
+     Beginning Time:  13:20:42
+        Ending Time:  13:20:42
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2018 Muthen & Muthen
